@@ -1,0 +1,57 @@
+
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+
+        <script>
+            $( document ).ready(function() {
+                $("#submit").click(function(event){
+                    event.preventDefault();
+                    var cityId = $('#cityNameId').val();
+                    $.ajax({
+                        url: "http://localhost:9001/weather/current?cityId="+cityId,
+                        success: function(result){
+                            console.log("response:" + result.cityName);
+
+                            $('.weather_date').text("Today's date: "+result.currentDate);
+                            $('.weather_cityname').text("The city name: "+result.cityName);
+                            $('.weather_description').text("Overall weather description: "+result.weatherDescription);
+                            $('.weather_tempcelcius').text("Temperature(C): "+result.temperatureInCelsius);
+                            $('.weather_tempfaren').text("Temperature(F): "+result.temperatureInFahrenheit);
+                            $('.weather_sunrise').text("Sunrise: "+result.sunriseTime);
+                            $('.weather_sunset').text("Sunset: "+result.sunsetTime);
+                        },
+                        error: function (e) {
+                            console.log("ERROR : ", e);
+                            alert(e.responseText);
+                        }
+                    });
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h2>Welcome to current weather data page</h2>
+
+        <form method="get">
+
+            choose city : <select name="cityName" id="cityNameId">
+                            <option value="2643743">London</option>
+                            <option value="1819729">Hong Kong</option>
+                          </select>
+            <input type="button" value="weather data" id="submit"/>
+
+            <div>
+                <p class="weather_date"></p>
+                <p class="weather_cityname"></p>
+                <p class="weather_description"></p>
+                <p class="weather_tempcelcius"></p>
+                <p class="weather_tempfaren"></p>
+                <p class="weather_sunrise"></p>
+                <p class="weather_sunset"></p>
+            </div>
+
+        </form>
+
+    </body>
+</html>
