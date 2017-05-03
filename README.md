@@ -2,6 +2,7 @@
 // how to build, deploy and test
 
 mvn clean install
+
 java -jar target/*.jar
 
 //application url to test
